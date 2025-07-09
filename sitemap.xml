@@ -8,4 +8,24 @@
          <loc>https://powhwee.github.io/about/</loc>
          <lastmod>2025-07-09</lastmod>
     </url>
+    <url>
+         <loc>https://powhwee.github.io/blog/</loc>
+         <lastmod>2025-07-09</lastmod>
+    </url>
+    <url>
+         <loc>https://powhwee.github.io/blog/2024/06/15/my-first-blog-post/</loc>
+         <lastmod>2025-07-09</lastmod>
+    </url>
+    <url>
+         <loc>https://powhwee.github.io/blog/archive/2024/</loc>
+         <lastmod>2025-07-09</lastmod>
+    </url>
+    <url>
+         <loc>https://powhwee.github.io/blog/category/technology/</loc>
+         <lastmod>2025-07-09</lastmod>
+    </url>
+    <url>
+         <loc>https://powhwee.github.io/blog/category/web-development/</loc>
+         <lastmod>2025-07-09</lastmod>
+    </url>
 </urlset>
