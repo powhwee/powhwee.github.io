@@ -1,0 +1,17 @@
+---
+date:
+  created: 2024-06-15
+  updated: 2024-06-16
+title: "My First Blog Post"
+categories:
+  - Technology
+  - Web Development
+tags:
+  - MkDocs
+  - Python
+draft: false
+---
+
+This is the introduction to my first post. It will appear on the blog index page as a summary.
+
+This is the rest of the content, which is only visible when you click through to the full post page. Here, you can elaborate with more details, code blocks, and images.
