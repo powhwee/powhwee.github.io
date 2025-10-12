@@ -1,3 +1,35 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://powhwee.github.io/</loc>
+         <lastmod>2025-10-12</lastmod>
+    </url>
+    <url>
+         <loc>https://powhwee.github.io/about/</loc>
+         <lastmod>2025-10-12</lastmod>
+    </url>
+    <url>
+         <loc>https://powhwee.github.io/blog/</loc>
+         <lastmod>2025-10-12</lastmod>
+    </url>
+    <url>
+         <loc>https://powhwee.github.io/blog/technology/setting-up-log-monitoring-using-grafana-and-loki/</loc>
+         <lastmod>2025-10-12</lastmod>
+    </url>
+    <url>
+         <loc>https://powhwee.github.io/blog/technology/reviving-and-old-jetson-nano/</loc>
+         <lastmod>2025-10-12</lastmod>
+    </url>
+    <url>
+         <loc>https://powhwee.github.io/blog/archive/2024/</loc>
+         <lastmod>2025-10-12</lastmod>
+    </url>
+    <url>
+         <loc>https://powhwee.github.io/blog/category/technology/</loc>
+         <lastmod>2025-10-12</lastmod>
+    </url>
+    <url>
+         <loc>https://powhwee.github.io/blog/category/web-development/</loc>
+         <lastmod>2025-10-12</lastmod>
+    </url>
 </urlset>
