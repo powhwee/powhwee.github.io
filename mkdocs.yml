@@ -1,1 +1,41 @@
-site_name: My Docs
+site_name: phtan @ github.io
+site_url: https://powhwee.github.io/
+site_author: Pow Hwee
+site_description: A personal website and blog covering technology and development.
+
+repo_url: https://github.com/powhwee/powhwee.github.io
+repo_name: powhwee/powhwee.github.io
+edit_uri: edit/main/docs/
+
+theme:
+  name: material
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      primary: indigo
+      accent: blue
+  features:
+    - navigation.instant
+    - search.suggest
+    - search.highlight
+
+nav:
+  - Home: index.md
+  - About: about.md
+  - Blog: blog/index.md
+
+
+
+
+plugins:
+  - search
+  - blog:
+       archive_date_format: MMM yyyy
+       post_url_format: "{categories}/{slug}"
+#      pagination_per_page: 1
+
+
+extra:
+  social:
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/pow-hwee-tan/
