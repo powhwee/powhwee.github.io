@@ -12,11 +12,11 @@
         <meta name="author" content="Pow Hwee">
       
       
-        <link rel="canonical" href="https://powhwee.github.io/blog/technology/reviving-and-old-jetson-nano/">
+        <link rel="canonical" href="https://powhwee.github.io/blog/sbc/using-sd-card-on-jetson-nano/">
       
       
+        <link rel="prev" href="../../single-board-computer/reviving-and-old-jetson-nano/">
       
-        <link rel="next" href="../setting-up-log-monitoring-using-grafana-and-loki/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Reviving and old Jetson Nano - phtan @ github.io</title>
+        <title>Using SD card on Jetson nano - phtan @ github.io</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#summary-of-learnings-ai-model-deployment-on-nvidia-jetson-nano" class="md-skip">
+        <a href="#sd-card" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Reviving and old Jetson Nano
+              Using SD card on Jetson nano
             
           </span>
         </div>
@@ -333,50 +333,6 @@
     
   
   
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#1-the-jetson-nano-software-environment" class="md-nav__link">
-    <span class="md-ellipsis">
-      1. The Jetson Nano Software Environment
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#2-dependency-management-and-problem-solving" class="md-nav__link">
-    <span class="md-ellipsis">
-      2. Dependency Management and Problem Solving
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#3-the-model-conversion-pipeline" class="md-nav__link">
-    <span class="md-ellipsis">
-      3. The Model Conversion Pipeline
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#4-troubleshooting-principles" class="md-nav__link">
-    <span class="md-ellipsis">
-      4. Troubleshooting Principles
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
-  
 </nav>
                   </div>
                 </div>
@@ -412,14 +368,14 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2024-06-15 00:00:00+00:00" class="md-ellipsis">June 15, 2024</time>
+                        <time datetime="2025-10-17 00:00:00+00:00" class="md-ellipsis">October 17, 2025</time>
                       </div>
                     </li>
                     
                       <li class="md-nav__item">
                         <div class="md-nav__link">
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 13h1.5v2.82l2.44 1.41-.75 1.3L15 16.69zm4-5H5v11h4.67c-.43-.91-.67-1.93-.67-3a7 7 0 0 1 7-7c1.07 0 2.09.24 3 .67zM5 21a2 2 0 0 1-2-2V5c0-1.11.89-2 2-2h1V1h2v2h8V1h2v2h1a2 2 0 0 1 2 2v6.1c1.24 1.26 2 2.99 2 4.9a7 7 0 0 1-7 7c-1.91 0-3.64-.76-4.9-2zm11-9.85A4.85 4.85 0 0 0 11.15 16c0 2.68 2.17 4.85 4.85 4.85A4.85 4.85 0 0 0 20.85 16c0-2.68-2.17-4.85-4.85-4.85"/></svg>
-                          <time datetime="2024-06-16 00:00:00+00:00" class="md-ellipsis">June 16, 2024</time>
+                          <time datetime="2025-10-17 00:00:00+00:00" class="md-ellipsis">October 17, 2025</time>
                         </div>
                       </li>
                     
@@ -430,8 +386,7 @@
                           <span class="md-ellipsis">
                             in
                             
-                              <a href="../../category/technology/">Technology</a>, 
-                              <a href="../../category/web-development/">Web Development</a></span>
+                              <a href="../../category/sbc/">SBC</a></span>
                         </div>
                       </li>
                     
@@ -442,7 +397,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              3 min read
+                              1 min read
                             
                           </span>
                         </div>
@@ -471,63 +426,20 @@
 
 <!-- more -->
 
-<h1 id="summary-of-learnings-ai-model-deployment-on-nvidia-jetson-nano">Summary of Learnings: AI Model Deployment on NVIDIA Jetson Nano</h1>
-<p>This document summarizes the key technical learnings from the process of deploying a TensorFlow-based object detection model on an NVIDIA Jetson Nano. The process involved troubleshooting a series of dependency, compilation, and model compatibility issues.</p>
-<h3 id="1-the-jetson-nano-software-environment">1. The Jetson Nano Software Environment</h3>
-<p>The process highlighted the characteristics of the Jetson Nano's software environment and its constraints.</p>
-<ul>
-<li><strong>Inference-Optimized Architecture:</strong> The hardware is designed for running pre-trained models (inference), which explains why compiling libraries from source is a slow and memory-intensive process.</li>
-<li><strong>Toolchain Versioning:</strong> The JetPack SDK is based on older, stable versions of tools (e.g., Python 3.6, g++ 7.x, and cmake 3.10). This creates compatibility conflicts when attempting to install modern AI libraries that have newer requirements.</li>
-<li><strong>AArch64 Architecture:</strong> The <code>aarch64</code> (ARM64) architecture requires specifically compiled software packages. This was the cause of the <code>Illegal instruction</code> error and necessitated the use of official NVIDIA-provided wheels for TensorFlow.</li>
-</ul>
-<h3 id="2-dependency-management-and-problem-solving">2. Dependency Management and Problem Solving</h3>
-<p>A series of dependency issues were encountered and solved, establishing a troubleshooting methodology.</p>
-<ul>
-<li>
-<p><strong>Problem: Python Package Incompatibility.</strong></p>
-<ul>
-<li><strong>Observation:</strong> The latest versions of packages on the Python Package Index (PyPI) are often not compatible with the Jetson's default Python 3.6.</li>
-<li><strong>Examples Solved:</strong> <code>protobuf</code> requiring Python 3.7+, <code>onnx-simplifier</code> requiring a newer <code>onnxruntime</code>.</li>
-<li><strong>Solution:</strong> Manually installing older, specific package versions (e.g., <code>pip install onnx==1.11.0</code>).</li>
-</ul>
-</li>
-<li>
-<p><strong>Problem: Missing System-Level Libraries.</strong></p>
-<ul>
-<li><strong>Observation:</strong> Python packages with C++ backends often depend on system libraries that must be installed with <code>apt-get</code>.</li>
-<li><strong>Examples Solved:</strong> <code>h5py</code> failing to build without <code>libhdf5-dev</code>, <code>protobuf</code> failing to build without <code>protobuf-compiler</code>.</li>
-<li><strong>Solution:</strong> Reading build logs to identify missing files and installing the corresponding <code>-dev</code> package.</li>
-</ul>
-</li>
-<li>
-<p><strong>Problem: Build Tool Incompatibility.</strong></p>
-<ul>
-<li><strong>Observation:</strong> The tools used to build packages, such as <code>Cython</code> and <code>cmake</code>, also have version dependencies.</li>
-<li><strong>Examples Solved:</strong> <code>numpy</code> failing to build because the default <code>Cython</code> was too new; <code>onnx-simplifier</code> failing because the system <code>cmake</code> was too old.</li>
-<li><strong>Solution:</strong> Manually installing a specific version of the build tool (e.g., <code>pip install Cython==0.29.36</code>) or upgrading the system tool itself.</li>
-</ul>
-</li>
-</ul>
-<h3 id="3-the-model-conversion-pipeline">3. The Model Conversion Pipeline</h3>
-<p>The conversation detailed the multi-stage process of preparing a model for the Jetson platform.</p>
-<ul>
-<li><strong>The Workflow:</strong> The required workflow is <strong>TensorFlow -&gt; ONNX -&gt; TensorRT</strong>.</li>
-<li><strong>The Protobuf Performance Requirement:</strong> The <code>protobuf</code> library's C++ accelerated backend is necessary for acceptable performance during model conversion. The solution involved building the library from source to create and install this backend.</li>
-<li><strong>Required Model Patching:</strong> The ONNX model generated from TensorFlow was not directly compatible with TensorRT and required two modifications via custom Python scripts:<ol>
-<li>Changing the model's <strong>input data type</strong> from <code>UINT8</code> to <code>FP32</code>.</li>
-<li>Changing the model's <strong>internal parameters and graph definitions</strong> from <code>INT64</code> to <code>INT32</code>.</li>
-</ol>
-</li>
-<li><strong>TensorRT Engine Portability:</strong> The final <code>.engine</code> file is compiled for a specific device and software version. This is why the original pre-built engine failed and why a new one had to be generated on the device.</li>
-</ul>
-<h3 id="4-troubleshooting-principles">4. Troubleshooting Principles</h3>
-<p>Several troubleshooting techniques were used to resolve the issues.</p>
-<ul>
-<li><strong>Error Log Analysis:</strong> Each solution was derived from reading the error logs to find the root cause, from <code>FileNotFoundError</code> to <code>TypeError: does not support assignment</code>.</li>
-<li><strong>Virtual Environment Behavior:</strong> The process highlighted how virtual environments function, specifically that <code>sudo pip install</code> targets the system's Python, not the active environment, and that file permissions can get mixed between the user and root.</li>
-<li><strong>Clean Build Environment:</strong> When permissions became tangled, the solution was to delete the source directory (<code>sudo rm -rf protobuf</code>) and start the build process from a clean state.</li>
-<li><strong>API-Specific Object Manipulation:</strong> It was discovered that the <code>RepeatedCompositeContainer</code> object in the ONNX library, while list-like, does not support methods like <code>.clear()</code> or slice assignment (<code>[:] =</code>). The correct manipulation required iterating with <code>del</code> and then using the <code>.extend()</code> method.</li>
-</ul>
+<h1 id="sd-card">SD card</h1>
+<p>I own both a Jetson Nano (the B01 revision) and a Jetson Nano Orin.  They are quite tedious single board computer to setup.</p>
+<p>The Jetson Nano does not have a NVME slot.  It boots by default from SD card.<br />
+The Jetson Nano Orin comes with a NVME slot, but still it does not boot from NVME by default.</p>
+<p>The kicker here is both require a firmware update to boot from a non-SD card source.<br />
+There are instructions on the net on how to do this; hence my purpose of this post is not about setting these up.</p>
+<p>What I want to warn is that although these devices are quick to setup using an SD card image and get started, 
+the SD card will <em>wear out</em> very quickly.  This is because SD cards are not meant to withstand constant writes by 
+the operating system, especially both the Nano and Orin are not really high in memory space and will swap often.</p>
+<p>As such, I have faced a couple of times SD card corruption.  It took me a while to figure out what is going on. Although
+I know that SD card will wear out, I didn't expect it to wear out so soon - I would say less than 2-3 months of infrequent 
+use!</p>
+<p>So if you are getting started on the Jetson series, do <em>quickly</em> move the setup to an NVME, especially with the newer
+Jetsons that support nvme.</p>
 
 
 
