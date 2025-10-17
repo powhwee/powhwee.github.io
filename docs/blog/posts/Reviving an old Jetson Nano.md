@@ -1,13 +1,12 @@
 ---
 date:
-  created: 2024-06-15
-  updated: 2024-06-16
+  created: 2025-06-16
+  updated: 2025-06-16
 title: "Reviving and old Jetson Nano"
 categories:
-  - Technology
-  - Web Development
+  - single board computer
 tags:
-  - under construction
+  - Jetson nano
 
 draft: false
 ---
