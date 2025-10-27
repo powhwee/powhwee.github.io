@@ -1,7 +1,7 @@
 ---
 date:
   created: 2025-10-27
-  updated: 2024-10-27
+  updated: 2025-10-27
 title: "Compiling a Vulkan code developed on Windows on a Mac"
 categories:
   - Technology
@@ -11,6 +11,41 @@ tags:
 draft: false
 ---
 <!-- more -->
+
+#Compiling and Running Vulkan program on Mac
+
+I was trying to compile and run a Vulkan program written on Windows.  The program does not intentionally use any VisualC++ nor Windows features, 
+but there are minor adjustments required.  This entry seek to capture the learnings from this exercise.
+
+##  Pre-requisites
+- vcpkg.   clone from here 'https://github.com/microsoft/vcpkg'
+- Vulkan SDK.  For Mac, download from here:  https://vulkan.lunarg.com/sdk/home
+
+### vcpkg
+
+You can do a 'brew install vcpkg', but you will still need to git clone the repository (see above link).  
+This is because homebrew only install executable, but vcpkg has other files that it needs to do its job.
+For example, when compiling with Clang (or gcc), you would need to pass a flag eg.
+`cmake -Dcmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=/<path where vcpkg is installed/vcpkg/scripts/buildsystems/vcpkg.cmake`
+
+You will also need to set VCPKG_ROOT.
+
+### Vulkan SDK
+
+The detail instruction to install Vulkan SDK on mac is here https://vulkan.lunarg.com/doc/view/latest/mac/getting_started.html
+
+**Options when installing**
+The installation, whether via GUI or command line, has the option to install header and libraries in system path eg. /usr/local/bin; or paths
+that are usually searched by compilers and linkers.
+
+My suggestion is *not* to include installation into the system path.  Reasons being:
+- Flexibility to run different versions of SDK when needed; having libraries in system path will easily cause conflicts with different versions
+- It is not difficult to set the include and library paths when you need to run the executable
+
+
+
+
+
 # Debugging log in compiling a vulkan program
 
 # NJin Debugging Log
