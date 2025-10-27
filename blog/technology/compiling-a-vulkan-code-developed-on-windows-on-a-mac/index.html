@@ -12,11 +12,11 @@
         <meta name="author" content="Pow Hwee">
       
       
-        <link rel="canonical" href="https://powhwee.github.io/blog/technology/setting-up-log-monitoring-using-grafana-and-loki/">
+        <link rel="canonical" href="https://powhwee.github.io/blog/technology/compiling-a-vulkan-code-developed-on-windows-on-a-mac/">
       
       
+        <link rel="prev" href="../../sbc/using-sd-card-on-jetson-nano/">
       
-        <link rel="next" href="../../single-board-computer/reviving-and-old-jetson-nano/">
       
       
       <link rel="icon" href="../../../assets/images/favicon.png">
@@ -24,7 +24,7 @@
     
     
       
-        <title>Setting up log monitoring using Grafana and Loki - phtan @ github.io</title>
+        <title>Compiling a Vulkan code developed on Windows on a Mac - phtan @ github.io</title>
       
     
     
@@ -76,7 +76,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#log-monitoring" class="md-skip">
+        <a href="#debugging-log-in-compiling-a-vulkan-program" class="md-skip">
           Skip to content
         </a>
       
@@ -112,7 +112,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Setting up log monitoring using Grafana and Loki
+              Compiling a Vulkan code developed on Windows on a Mac
             
           </span>
         </div>
@@ -368,14 +368,14 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5z"/></svg>
-                        <time datetime="2024-06-15 00:00:00+00:00" class="md-ellipsis">June 15, 2024</time>
+                        <time datetime="2025-10-27 00:00:00+00:00" class="md-ellipsis">October 27, 2025</time>
                       </div>
                     </li>
                     
                       <li class="md-nav__item">
                         <div class="md-nav__link">
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15 13h1.5v2.82l2.44 1.41-.75 1.3L15 16.69zm4-5H5v11h4.67c-.43-.91-.67-1.93-.67-3a7 7 0 0 1 7-7c1.07 0 2.09.24 3 .67zM5 21a2 2 0 0 1-2-2V5c0-1.11.89-2 2-2h1V1h2v2h8V1h2v2h1a2 2 0 0 1 2 2v6.1c1.24 1.26 2 2.99 2 4.9a7 7 0 0 1-7 7c-1.91 0-3.64-.76-4.9-2zm11-9.85A4.85 4.85 0 0 0 11.15 16c0 2.68 2.17 4.85 4.85 4.85A4.85 4.85 0 0 0 20.85 16c0-2.68-2.17-4.85-4.85-4.85"/></svg>
-                          <time datetime="2024-06-16 00:00:00+00:00" class="md-ellipsis">June 16, 2024</time>
+                          <time datetime="2024-10-27 00:00:00+00:00" class="md-ellipsis">October 27, 2024</time>
                         </div>
                       </li>
                     
@@ -386,8 +386,7 @@
                           <span class="md-ellipsis">
                             in
                             
-                              <a href="../../category/technology/">Technology</a>, 
-                              <a href="../../category/web-development/">Web Development</a></span>
+                              <a href="../../category/technology/">Technology</a></span>
                         </div>
                       </li>
                     
@@ -398,7 +397,7 @@
                           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7z"/></svg>
                           <span class="md-ellipsis">
                             
-                              1 min read
+                              4 min read
                             
                           </span>
                         </div>
@@ -426,7 +425,230 @@
 
 
 <!-- more -->
-<h1 id="log-monitoring">Log monitoring</h1>
+<h1 id="debugging-log-in-compiling-a-vulkan-program">Debugging log in compiling a vulkan program</h1>
+<h1 id="njin-debugging-log">NJin Debugging Log</h1>
+<p>This document outlines the step-by-step process of debugging and fixing the <code>njin</code> Vulkan application.</p>
+<hr />
+<h2 id="1-vulkan-portability-error-on-macos">1. Vulkan Portability Error on macOS</h2>
+<h4 id="error-message">Error Message</h4>
+<pre><code>vkCreateInstance: Found drivers that contain devices which support the portability subset, but the instance does not enumerate portability drivers! Applications that wish to enumerate portability drivers must set the VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR bit in the VkInstanceCreateInfo flags.
+vkCreateInstance: Found no drivers!
+libc++abi: terminating due to uncaught exception of type std::runtime_error: failed to create instance!
+</code></pre>
+<h4 id="problem">Problem</h4>
+<p>The application failed to create a Vulkan instance on macOS because it didn't enable the required portability extension needed for MoltenVK (the Vulkan-to-Metal translation layer).</p>
+<h4 id="fixes">Fixes</h4>
+<ol>
+<li>
+<p><strong>Enable Portability Instance Extension</strong></p>
+<ul>
+<li><strong>File:</strong> <code>njin/vulkan/src/Instance.cpp</code></li>
+<li><strong>Change:</strong> Added the <code>VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR</code> flag and the corresponding enumeration extension name.</li>
+</ul>
+<p>```diff
++        extensions.push_back(VK_KHR_PORTABILITY_ENUMERATION_EXTENSION_NAME);
++
++        info.flags |= VK_INSTANCE_CREATE_ENUMERATE_PORTABILITY_BIT_KHR;
++
+   // extensions
+   info.enabledExtensionCount = static_cast<uint32_t>(extensions.size());
+   info.ppEnabledExtensionNames = extensions.data();</p>
+<p>if (vkCreateInstance(&amp;info, nullptr, &amp;instance_) != VK_SUCCESS) {
+       throw std::runtime_error("failed to create instance!");
+   }
+  ```</p>
+</li>
+<li>
+<p><strong>Enable Portability Device Extension</strong></p>
+<ul>
+<li><strong>File:</strong> <code>njin/vulkan/src/LogicalDevice.cpp</code></li>
+<li><strong>Change:</strong> Added the <code>VK_KHR_portability_subset</code> device extension.</li>
+</ul>
+<p><code>diff
+const std::vector&lt;const char*&gt; physical_device_extensions = {
+VK_KHR_SWAPCHAIN_EXTENSION_NAME,
+VK_KHR_SEPARATE_DEPTH_STENCIL_LAYOUTS_EXTENSION_NAME,
+VK_KHR_CREATE_RENDERPASS_2_EXTENSION_NAME,
++    "VK_KHR_portability_subset",
+ };</code></p>
+</li>
+</ol>
+<hr />
+<h2 id="2-descriptor-pool-allocation-failure">2. Descriptor Pool Allocation Failure</h2>
+<h4 id="error-message_1">Error Message</h4>
+<pre><code>vkAllocateDescriptorSets(): Trying to allocate 100 of VK_DESCRIPTOR_TYPE_COMBINED_IMAGE_SAMPLER descriptors from VkDescriptorPool 0xf000000000f, but this pool only has a total of 1 descriptors for this type...
+libc++abi: terminating due to uncaught exception of type std::runtime_error: failed to allocate descriptor sets
+</code></pre>
+<h4 id="problem_1">Problem</h4>
+<p>The <code>VkDescriptorPool</code> was created with an incorrect size. The code was counting the number of descriptor <em>bindings</em> (which was 1 for each type) instead of summing the total <em>count</em> of descriptors required by each binding (which was 100).</p>
+<h4 id="fix">Fix</h4>
+<ul>
+<li><strong>File:</strong> <code>njin/vulkan/src/DescriptorPool.cpp</code></li>
+<li>
+<p><strong>Change:</strong> Correctly summed the <code>descriptor_count</code> from each binding.</p>
+<p><code>diff
+-                descriptor_type_to_count[binding_info.descriptor_type]++;
++                descriptor_type_to_count[binding_info.descriptor_type] += binding_info.descriptor_count;</code></p>
+</li>
+</ul>
+<hr />
+<h2 id="3-invalid-image-layouts">3. Invalid Image Layouts</h2>
+<p>This issue involved a two-step fix.</p>
+<h3 id="part-a-image-layout-not-set">Part A: Image Layout Not Set</h3>
+<h4 id="error-message_2">Error Message</h4>
+<pre><code>Validation Error: [ VUID-vkCmdDraw-None-09600 ] ... expects VkImage ... to be in layout VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL--instead, current layout is VK_IMAGE_LAYOUT_UNDEFINED.
+</code></pre>
+<h4 id="problem_2">Problem</h4>
+<p>Dummy placeholder images were created in <code>VK_IMAGE_LAYOUT_UNDEFINED</code> but were being used in shaders without being transitioned to a shader-readable layout first. The validation layers correctly identified that the image layout did not match its usage.</p>
+<h4 id="attempted-fix">Attempted Fix</h4>
+<p>A layout transition was added to <code>njin/vulkan/src/DescriptorSets.cpp</code> where the dummy images were created.</p>
+<pre><code class="language-diff">// In DescriptorSets::create_resources
+                     for (int i{ 0 }; i &lt; binding_info.descriptor_count; ++i) {
+                         Image image{ *device_,
+                                      *physical_device_,
+                                      image_create_info };
+                         ImageView image_view{ *device_,
+                                               image,
+                                               { .width = 1, .height = 1 },
+                                               VK_IMAGE_ASPECT_COLOR_BIT };
++                        image.transition_layout(
++                        VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL);
+                         images.push_back(std::make_pair(std::move(image),
+                                                         std::move(image_view)));
+                     }
+</code></pre>
+<h3 id="part-b-unsupported-layout-transition">Part B: Unsupported Layout Transition</h3>
+<h4 id="error-message_3">Error Message</h4>
+<p>The attempted fix above led to a new error:</p>
+<pre><code>libc++abi: terminating due to uncaught exception of type std::invalid_argument: unsupported layout transition
+</code></pre>
+<h4 id="problem_3">Problem</h4>
+<p>The <code>Image::transition_layout</code> function was too specific and did not have a case to handle a direct transition from <code>VK_IMAGE_LAYOUT_UNDEFINED</code> to <code>VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL</code>, causing it to throw an exception.</p>
+<h4 id="final-fix">Final Fix</h4>
+<ul>
+<li><strong>File:</strong> <code>njin/vulkan/src/Image.cpp</code></li>
+<li>
+<p><strong>Change:</strong> Added a new case to the <code>transition_layout</code> function to correctly handle the <code>UNDEFINED</code> to <code>SHADER_READ_ONLY_OPTIMAL</code> transition.</p>
+<p><code>diff
+         src_stage_mask = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
+         dst_stage_mask = VK_PIPELINE_STAGE_TRANSFER_BIT;
++        } else if (current_layout_ == VK_IMAGE_LAYOUT_UNDEFINED &amp;&amp;
++                   new_layout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) {
++            src_access_mask = 0;
++            dst_access_mask = VK_ACCESS_SHADER_READ_BIT;
++            src_stage_mask = VK_PIPELINE_STAGE_TOP_OF_PIPE_BIT;
++            dst_stage_mask = VK_PIPELINE_STAGE_FRAGMENT_SHADER_BIT;
+     } else if (current_layout_ == VK_IMAGE_LAYOUT_TRANSFER_DST_OPTIMAL &amp;&amp;
+                new_layout == VK_IMAGE_LAYOUT_SHADER_READ_ONLY_OPTIMAL) {
+         src_access_mask = VK_ACCESS_TRANSFER_WRITE_BIT;</code></p>
+</li>
+</ul>
+<hr />
+<h2 id="4-exceeding-gpu-descriptor-limits">4. Exceeding GPU Descriptor Limits</h2>
+<h4 id="error-message_4">Error Message</h4>
+<pre><code>Validation Error: [ VUID-VkPipelineLayoutCreateInfo-descriptorType-03016 ] ... max per-stage sampler bindings count (100) exceeds device maxPerStageDescriptorSamplers limit (16).
+Validation Error: [ VUID-VkPipelineLayoutCreateInfo-descriptorType-03017 ] ... max per-stage uniform buffer bindings count (100) exceeds device maxPerStageDescriptorUniformBuffers limit (31).
+Validation Error: [ VUID-VkPipelineLayoutCreateInfo-descriptorType-03018 ] ... max per-stage storage buffer bindings count (100) exceeds device maxPerStageDescriptorStorageBuffers limit (31).
+</code></pre>
+<h4 id="problem_4">Problem</h4>
+<p>The application was hardcoded to request 100 descriptors for various types, which exceeded the user's specific GPU hardware limits.</p>
+<h4 id="fix_1">Fix</h4>
+<ul>
+<li><strong>File:</strong> <code>njin/vulkan/include/vulkan/config.h</code></li>
+<li>
+<p><strong>Change:</strong> Reduced the <code>MAX_OBJECTS</code> constant and all related <code>descriptor_count</code> values from 100 to 16 to conform to the hardware's most restrictive limit.</p>
+<p><code>diff
+-    constexpr int MAX_OBJECTS = 100;
++    constexpr int MAX_OBJECTS = 16;
+ ...
+-        .descriptor_count = 100,
++        .descriptor_count = 16,
+...
+-        .descriptor_count = 100,
++        .descriptor_count = 16,
+...
+-        .descriptor_count = 100,
++        .descriptor_count = 16,</code></p>
+</li>
+</ul>
+<hr />
+<h2 id="5-shader-and-application-mismatch">5. Shader and Application Mismatch</h2>
+<h4 id="error-message_5">Error Message</h4>
+<pre><code>Validation Error: [ VUID-VkGraphicsPipelineCreateInfo-layout-07991 ] ... pCreateInfos[0].pStages[0] SPIR-V ... uses descriptor ... with a VkDescriptorSetLayoutBinding::descriptorCount of 16, but requires at least 50 in the SPIR-V.
+</code></pre>
+<h4 id="problem_5">Problem</h4>
+<p>The descriptor counts were lowered to 16 in the C++ code, but the GLSL shaders still had a hardcoded array size of 50 for the <code>models</code> buffer.</p>
+<h4 id="fix_2">Fix</h4>
+<ul>
+<li><strong>Files:</strong> <code>shader/shader.vert</code> and <code>shader/iso.vert</code></li>
+<li>
+<p><strong>Change:</strong> Changed the array size from 50 to 16 in both shaders.</p>
+<p><code>diff
+- } models[50];
++ } models[16];</code></p>
+</li>
+</ul>
+<hr />
+<h2 id="6-final-logic-and-build-fixes">6. Final Logic and Build Fixes</h2>
+<h4 id="error-message_6">Error Message</h4>
+<pre><code>/Users/powhweee/coding/njin/njin/ecs/src/njRenderSystem.cpp:204:32: error: no member named 'vulkan' in namespace 'njin'
+</code></pre>
+<h4 id="problem_6">Problem</h4>
+<ol>
+<li>The application logic in <code>njRenderSystem</code> did not respect the new <code>MAX_OBJECTS</code> limit, creating a risk of out-of-bounds GPU access.</li>
+<li>Fixing this revealed a build system issue where the <code>ecs</code> module could not see the <code>vulkan</code> module's code, leading to the compile error.</li>
+</ol>
+<h4 id="fixes_1">Fixes</h4>
+<ol>
+<li>
+<p><strong>Build System Dependency</strong></p>
+<ul>
+<li><strong>File:</strong> <code>njin/ecs/CMakeLists.txt</code></li>
+<li><strong>Change:</strong> The <code>ecs</code> library was properly linked against the <code>vulkan</code> library.</li>
+</ul>
+<p><code>diff
+- target_link_libraries(ecs PUBLIC SDL3::SDL3 math core physics_system)
++ target_link_libraries(ecs PUBLIC SDL3::SDL3 math core physics_system vulkan)</code></p>
+</li>
+<li>
+<p><strong>Include Header</strong></p>
+<ul>
+<li><strong>File:</strong> <code>njin/ecs/src/njRenderSystem.cpp</code></li>
+<li><strong>Change:</strong> Added the necessary header to include the <code>MAX_OBJECTS</code> definition.</li>
+</ul>
+<p>```diff</p>
+<h1 id="include-ecscomponentsh">include "ecs/Components.h"</h1>
+<p>+#include "vulkan/config.h"</p>
+</li>
+</ol>
+<p>namespace njin::ecs {
+```</p>
+<ol>
+<li>
+<p><strong>Enforce Logic Limit</strong></p>
+<ul>
+<li><strong>File:</strong> <code>njin/ecs/src/njRenderSystem.cpp</code></li>
+<li><strong>Change:</strong> Added a check to the object gathering loop to ensure it does not exceed <code>MAX_OBJECTS</code>.</li>
+</ul>
+<p>```diff
++        int count = 0;
+     for (const auto&amp; [entity, view] : meshes_no_parents) {
++            if (count &gt;= njin::vulkan::MAX_OBJECTS) {
++                break;
++            }
+         auto mesh{ std::get<njMeshComponent*>(view) };
+         auto transform{ std::get<njTransformComponent*>(view) };
+         // global transform = local transform for entities with no parent
+@@ -220,6 +224,7 @@
+.data = data };
+renderables.push_back(renderable);
++            count++;
+     }</p>
+<pre><code> buffer_-&gt;replace(renderables);
+</code></pre>
+<p>```</p>
+</li>
+</ol>
 
 
 
